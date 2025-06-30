@@ -49,7 +49,8 @@ button {
 
 button.roll-dice {
   height: 50px;
-  width: 100px;
+  width: auto;
+  padding: 6px 22px;
   border: none;
   border-radius: 6px;
   background-color: #5035ff;
