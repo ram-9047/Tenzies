@@ -15,7 +15,16 @@ main {
   justify-content: space-evenly;
   align-items: center;
 }
-
+h1 {
+  font-size: 5rem;
+  font-weight: 600;
+}
+p {
+  width: 80%;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
 .dice-container {
   display: grid;
   grid-template: auto auto/ repeat(5, 1fr);
@@ -23,7 +32,7 @@ main {
 }
 
 button {
-  font-family: Karla, sans-serif;
+  font-family: "Karla, sans-serif";
   cursor: pointer;
 }
 
