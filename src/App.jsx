@@ -21,12 +21,31 @@ function App() {
     return diceValue;
   }
 
+  function hold(id) {
+    let updatedDiceValue = diceValue.map((dieObj) => {
+      if (dieObj.id == id) {
+        dieObj.isHeld = !dieObj.isHeld;
+      }
+      return dieObj;
+    });
+
+    setDiceValue(updatedDiceValue);
+  }
+
   return (
     <>
       <main>
         <div className="dice-container">
           {diceValue.map((dieObj) => {
-            return <Die value={dieObj.value} key={dieObj.id} />;
+            return (
+              <Die
+                value={dieObj.value}
+                key={dieObj.id}
+                isHeld={dieObj.isHeld}
+                hold={hold}
+                id={dieObj.id}
+              />
+            );
           })}
         </div>
 
