@@ -25,6 +25,16 @@ function App() {
     );
   }
 
+  function isAllDiceChecked() {
+    {
+      return diceValue.every((die) => die.isHeld);
+    }
+  }
+
+  function isAllDiceValueSame() {
+    return diceValue.every((die) => die.value === diceValue[0].value);
+  }
+
   function restartGame() {
     setDiceValue(generateNewDices());
   }
@@ -60,6 +70,7 @@ function App() {
 
     setDiceValue(updatedDiceValue);
   }
+  // console.log(isAllDiceChecked, isAllDiceValueSame);
 
   return (
     <>
@@ -79,12 +90,22 @@ function App() {
             }}
           />
         ) : null}
+
+        {isAllDiceChecked() && !!!isAllDiceValueSame()
+          ? alert("Game Lost")
+          : null}
+
         <div aria-live="polite" className="sr-only">
           {gameWon && (
             <p>Congratulations! You won! Press "New Game" to start again.</p>
           )}
         </div>
-        <h1>Tenxies</h1>
+        <div aria-live="polite" className="sr-only">
+          {isAllDiceChecked() & !isAllDiceValueSame() && (
+            <p>Hu-uh! You Lost! Press "New Game" to start again.</p>
+          )}
+        </div>
+        <h1>Tenzies</h1>
         <p>
           Roll until all dice are the same. Click each die to freeze it at its
           current value between rolls.
