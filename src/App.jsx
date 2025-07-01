@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ReactConfetti from "react-confetti";
 import { nanoid } from "nanoid";
 import "./App.css";
@@ -6,8 +6,14 @@ import Die from "./components/Die";
 
 function App() {
   const [diceValue, setDiceValue] = useState(() => generateNewDices());
+  const buttonRef = useRef(null);
 
   let gameWon = false;
+
+  useEffect(() => {
+    gameWon ? buttonRef.current.focus : gameWon;
+  }, [gameWon]);
+
   if (gameStatus()) {
     gameWon = true;
   }
@@ -97,7 +103,7 @@ function App() {
           })}
         </div>
 
-        <button className="roll-dice" onClick={handleRollDice}>
+        <button ref={buttonRef} className="roll-dice" onClick={handleRollDice}>
           {gameWon ? "New Game" : "Roll"}
         </button>
       </main>
