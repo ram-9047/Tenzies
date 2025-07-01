@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import ReactConfetti from "react-confetti";
 import { nanoid } from "nanoid";
 import "./App.css";
 import Die from "./components/Die";
 
 function App() {
-  const [diceValue, setDiceValue] = useState(generateNewDices());
+  const [diceValue, setDiceValue] = useState(() => generateNewDices());
 
   let gameWon = false;
   if (gameStatus()) {
@@ -18,12 +19,18 @@ function App() {
     );
   }
 
+  function restartGame() {
+    setDiceValue(generateNewDices());
+  }
+
   function handleRollDice() {
-    setDiceValue((oldDice) =>
-      oldDice.map((die) =>
-        die.isHeld ? die : { ...die, value: Math.ceil(Math.random() * 6) }
-      )
-    );
+    gameWon
+      ? restartGame()
+      : setDiceValue((oldDice) =>
+          oldDice.map((die) =>
+            die.isHeld ? die : { ...die, value: Math.ceil(Math.random() * 6) }
+          )
+        );
   }
 
   function generateNewDices() {
@@ -52,7 +59,7 @@ function App() {
     <>
       <main>
         {gameWon ? (
-          <Confetti
+          <ReactConfetti
             drawShape={(ctx) => {
               ctx.beginPath();
               for (let i = 0; i < 22; i++) {
